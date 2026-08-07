@@ -1,0 +1,46 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://gesture/gesture_input_layer.gd" id="1_layer"]
+[ext_resource type="Script" path="res://gesture/test/feel_test_feedback.gd" id="2_feedback"]
+
+[node name="FeelTest" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_layer")
+leniency = -0.0965
+draw_trail = true
+
+[node name="FeedbackLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 16.0
+offset_top = 16.0
+offset_right = -16.0
+offset_bottom = 96.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 28
+text = "Draw a symbol anywhere on screen"
+autowrap_mode = 3
+script = ExtResource("2_feedback")
+
+[node name="SymbolListLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = -170.0
+offset_right = -16.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 24
+text = "Symbols: circle, line_v, caret, line_h, triangle, square, zigzag, s_curve, spiral, figure_eight, oval, rectangle, backwards_three"
+autowrap_mode = 3
+vertical_alignment = 2
