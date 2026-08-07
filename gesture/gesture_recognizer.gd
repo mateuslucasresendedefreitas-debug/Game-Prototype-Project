@@ -16,6 +16,11 @@ const SQUARE_SIZE: float = 250.0
 const ANGLE_RANGE_DEG: float = 45.0
 const ANGLE_PRECISION_DEG: float = 2.0
 
+# Below this bounding-box aspect ratio a stroke is treated as 1-dimensional
+# and scaled uniformly. Sloppy real lines land around 0.1–0.3; the thinnest
+# genuine 2D symbol (rectangle) sits at 0.5.
+const THIN_ASPECT_RATIO: float = 0.35
+
 # 0.5 * sqrt(SQUARE_SIZE^2 + SQUARE_SIZE^2)
 const HALF_DIAGONAL: float = 176.7766952966369
 
@@ -159,19 +164,19 @@ func _scale_to_square(points: PackedVector2Array, size: float) -> PackedVector2A
 	var w := hi.x - lo.x
 	var h := hi.y - lo.y
 
-	# Degenerate (1D) strokes: non-uniform scaling would divide by ~zero and
-	# explode a straight line into noise. Fall back to uniform scale.
+	# Near-1D strokes (lines): non-uniform scaling stretches the thin axis —
+	# which for a drawn line is pure hand jitter — to the full square,
+	# exploding noise into shape. Below the aspect threshold, scale uniformly
+	# by the long axis instead (standard $1 practice for 1D gestures).
+	var long_axis := maxf(w, h)
 	var sx: float
 	var sy: float
-	if w < 1.0 and h < 1.0:
+	if long_axis < 1.0:
 		sx = 1.0
 		sy = 1.0
-	elif w < 1.0:
-		sx = size / h
-		sy = size / h
-	elif h < 1.0:
-		sx = size / w
-		sy = size / w
+	elif minf(w, h) / long_axis < THIN_ASPECT_RATIO:
+		sx = size / long_axis
+		sy = size / long_axis
 	else:
 		sx = size / w
 		sy = size / h

@@ -2,11 +2,11 @@
   "confusion_pairs": {
     "caret/line_v": {
       "confusion_rate_a_to_b": 0,
-      "confusion_rate_b_to_a": 0.0778
+      "confusion_rate_b_to_a": 0
     },
-    "circle/oval": {
-      "confusion_rate_a_to_b": 0.6111,
-      "confusion_rate_b_to_a": 0.7667
+    "circle/half_circle": {
+      "confusion_rate_a_to_b": 0,
+      "confusion_rate_b_to_a": 0
     },
     "s_curve/backwards_three": {
       "confusion_rate_a_to_b": 0,
@@ -14,25 +14,15 @@
     },
     "square/rectangle": {
       "confusion_rate_a_to_b": 0,
-      "confusion_rate_b_to_a": 0.0111
+      "confusion_rate_b_to_a": 0.0333
     }
   },
   "flags": [
-    "circle self_pick_rate=0.9333 at intensity=1.0",
-    "line_v self_pick_rate=0.1333 at intensity=1.0",
-    "line_h self_pick_rate=0.6333 at intensity=1.0",
-    "zigzag self_pick_rate=0.9333 at intensity=1.0",
-    "s_curve self_pick_rate=0.8333 at intensity=1.0",
-    "spiral self_pick_rate=0.8333 at intensity=1.0",
-    "figure_eight self_pick_rate=0.4000 at intensity=1.0",
-    "oval self_pick_rate=0.4667 at intensity=1.0",
-    "circle/oval confusion_rate=0.6111",
-    "circle/oval (reverse) confusion_rate=0.7667",
-    "caret/line_v (reverse) confusion_rate=0.0778"
+    "s_curve self_pick_rate=0.9000 at intensity=1.0"
   ],
-  "generated_at": "2026-08-07T20:56:11Z",
+  "generated_at": "2026-08-07T21:09:38Z",
   "rng_seed": 1592639710,
-  "suggested_leniency": -0.0965,
+  "suggested_leniency": 0.5853,
   "symbols": {
     "backwards_three": {
       "self_pick_rate": 1,
@@ -41,9 +31,9 @@
         "0.6": 1,
         "1": 1
       },
-      "self_score_max": 0.9869,
-      "self_score_mean": 0.9361,
-      "self_score_min": 0.7946
+      "self_score_max": 0.9824,
+      "self_score_mean": 0.9395,
+      "self_score_min": 0.8669
     },
     "caret": {
       "self_pick_rate": 1,
@@ -57,59 +47,48 @@
       "self_score_min": 0.864
     },
     "circle": {
-      "self_pick_rate": 0.9778,
+      "self_pick_rate": 1,
       "self_pick_rate_by_intensity": {
         "0.3": 1,
         "0.6": 1,
-        "1": 0.933333333333333
+        "1": 1
       },
       "self_score_max": 0.9896,
       "self_score_mean": 0.9579,
       "self_score_min": 0.8831
     },
     "figure_eight": {
-      "self_pick_rate": 0.4,
-      "self_pick_rate_by_intensity": {
-        "0.3": 0.333333333333333,
-        "0.6": 0.466666666666667,
-        "1": 0.4
-      },
-      "self_score_max": 0.973,
-      "self_score_mean": 0.5077,
-      "self_score_min": -0.0665
-    },
-    "line_h": {
-      "self_pick_rate": 0.6222,
-      "self_pick_rate_by_intensity": {
-        "0.3": 0.6,
-        "0.6": 0.633333333333333,
-        "1": 0.633333333333333
-      },
-      "self_score_max": 0.8472,
-      "self_score_mean": 0.7581,
-      "self_score_min": 0.6629
-    },
-    "line_v": {
-      "self_pick_rate": 0.1667,
-      "self_pick_rate_by_intensity": {
-        "0.3": 0.2,
-        "0.6": 0.166666666666667,
-        "1": 0.133333333333333
-      },
-      "self_score_max": 0.8616,
-      "self_score_mean": 0.7575,
-      "self_score_min": 0.634
-    },
-    "oval": {
-      "self_pick_rate": 0.8,
+      "self_pick_rate": 1,
       "self_pick_rate_by_intensity": {
         "0.3": 1,
-        "0.6": 0.933333333333333,
-        "1": 0.466666666666667
+        "0.6": 1,
+        "1": 1
       },
-      "self_score_max": 0.9885,
-      "self_score_mean": 0.9475,
-      "self_score_min": 0.8804
+      "self_score_max": 0.9801,
+      "self_score_mean": 0.9013,
+      "self_score_min": 0.7314
+    },
+    "half_circle": {
+      "self_pick_rate": 1,
+      "self_pick_rate_by_intensity": {
+        "0.3": 1,
+        "0.6": 1,
+        "1": 1
+      },
+      "self_score_max": 0.9892,
+      "self_score_mean": 0.9553,
+      "self_score_min": 0.9013
+    },
+    "line_v": {
+      "self_pick_rate": 1,
+      "self_pick_rate_by_intensity": {
+        "0.3": 1,
+        "0.6": 1,
+        "1": 1
+      },
+      "self_score_max": 0.9944,
+      "self_score_mean": 0.9742,
+      "self_score_min": 0.926
     },
     "rectangle": {
       "self_pick_rate": 1,
@@ -118,31 +97,31 @@
         "0.6": 1,
         "1": 1
       },
-      "self_score_max": 0.9891,
-      "self_score_mean": 0.9482,
-      "self_score_min": 0.8791
+      "self_score_max": 0.9862,
+      "self_score_mean": 0.9496,
+      "self_score_min": 0.8722
     },
     "s_curve": {
-      "self_pick_rate": 0.9333,
-      "self_pick_rate_by_intensity": {
-        "0.3": 1,
-        "0.6": 0.966666666666667,
-        "1": 0.833333333333333
-      },
-      "self_score_max": 0.9875,
-      "self_score_mean": 0.9356,
-      "self_score_min": 0.8127
-    },
-    "spiral": {
-      "self_pick_rate": 0.9444,
+      "self_pick_rate": 0.9667,
       "self_pick_rate_by_intensity": {
         "0.3": 1,
         "0.6": 1,
-        "1": 0.833333333333333
+        "1": 0.9
       },
-      "self_score_max": 0.9803,
-      "self_score_mean": 0.7855,
-      "self_score_min": 0.3166
+      "self_score_max": 0.9834,
+      "self_score_mean": 0.9386,
+      "self_score_min": 0.8215
+    },
+    "spiral": {
+      "self_pick_rate": 1,
+      "self_pick_rate_by_intensity": {
+        "0.3": 1,
+        "0.6": 1,
+        "1": 1
+      },
+      "self_score_max": 0.9774,
+      "self_score_mean": 0.8232,
+      "self_score_min": 0.6153
     },
     "square": {
       "self_pick_rate": 1,
@@ -151,9 +130,9 @@
         "0.6": 1,
         "1": 1
       },
-      "self_score_max": 0.9862,
-      "self_score_mean": 0.9546,
-      "self_score_min": 0.8869
+      "self_score_max": 0.9879,
+      "self_score_mean": 0.9547,
+      "self_score_min": 0.8932
     },
     "triangle": {
       "self_pick_rate": 1,
@@ -162,20 +141,20 @@
         "0.6": 1,
         "1": 1
       },
-      "self_score_max": 0.9844,
-      "self_score_mean": 0.9399,
-      "self_score_min": 0.8728
+      "self_score_max": 0.9817,
+      "self_score_mean": 0.9395,
+      "self_score_min": 0.8457
     },
     "zigzag": {
-      "self_pick_rate": 0.9667,
+      "self_pick_rate": 0.9778,
       "self_pick_rate_by_intensity": {
         "0.3": 1,
         "0.6": 0.966666666666667,
-        "1": 0.933333333333333
+        "1": 0.966666666666667
       },
-      "self_score_max": 0.9865,
-      "self_score_mean": 0.9336,
-      "self_score_min": 0.8436
+      "self_score_max": 0.9826,
+      "self_score_mean": 0.9295,
+      "self_score_min": 0.7778
     }
   }
 }
