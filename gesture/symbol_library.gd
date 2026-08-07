@@ -47,12 +47,19 @@ static func all_symbols() -> Array:
 	return out
 
 
+## Symbols whose meaning depends on orientation: matched without $1's
+## indicative-angle rotation, so a caret drawn as a V (or < or >) is a miss
+## instead of a match. Keep this list short — rotation invariance is also what
+## makes the start point irrelevant on closed shapes.
+const ORIENTATION_LOCKED: Array = [&"caret"]
+
+
 ## Populate a GestureRecognizer with every template in the library.
 ## Call once at boot; restrict matching later via `active_pool`.
 static func install_templates(recognizer: GestureRecognizer) -> void:
 	for symbol_id in all_symbols():
 		for variant in _templates_for(symbol_id):
-			recognizer.add_template(symbol_id, variant)
+			recognizer.add_template(symbol_id, variant, symbol_id in ORIENTATION_LOCKED)
 
 
 ## Public wrapper over `_templates_for` for test harnesses that need the raw

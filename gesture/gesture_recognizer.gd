@@ -31,12 +31,21 @@ const PHI: float = 0.6180339887498949
 var _templates: Array = []
 
 
-func add_template(symbol_id: StringName, points) -> void:
+## `orientation_locked`: skip the indicative-angle rotation for this template,
+## so the symbol only matches in (roughly) its drawn orientation — the ±45°
+## angular search still allows tilt. Use for symbols whose MEANING depends on
+## orientation (a caret is not a V); everything else keeps $1's full rotation
+## invariance, which is also what makes start-point irrelevant on closed shapes.
+func add_template(symbol_id: StringName, points, orientation_locked: bool = false) -> void:
 	var pts := _to_packed(points)
 	if pts.size() < 2:
 		push_warning("GestureRecognizer: template for %s has too few points" % symbol_id)
 		return
-	_templates.append({ "symbol": symbol_id, "points": _normalize(pts) })
+	_templates.append({
+		"symbol": symbol_id,
+		"points": _normalize(pts, not orientation_locked),
+		"locked": orientation_locked,
+	})
 
 
 ## Returns:
@@ -56,6 +65,7 @@ func recognize(points, threshold: float = 0.78, active_pool: Array = []) -> Dict
 		return result
 
 	var normalized := _normalize(candidate)
+	var normalized_raw := _normalize(candidate, false)   # for orientation-locked templates
 	var scores: Dictionary = {}
 	var best_score := -1.0
 	var best_symbol: StringName = &""
@@ -64,7 +74,8 @@ func recognize(points, threshold: float = 0.78, active_pool: Array = []) -> Dict
 		var sym: StringName = t["symbol"]
 		if not active_pool.is_empty() and not active_pool.has(sym):
 			continue
-		var d := _distance_at_best_angle(normalized, t["points"])
+		var cand: PackedVector2Array = normalized_raw if t["locked"] else normalized
+		var d := _distance_at_best_angle(cand, t["points"])
 		var score := 1.0 - (d / HALF_DIAGONAL)
 		if score > float(scores.get(sym, -1.0)):
 			scores[sym] = score
@@ -80,9 +91,10 @@ func recognize(points, threshold: float = 0.78, active_pool: Array = []) -> Dict
 
 # ------------------------------------------------------------- normalization
 
-func _normalize(points: PackedVector2Array) -> PackedVector2Array:
+func _normalize(points: PackedVector2Array, apply_rotation: bool = true) -> PackedVector2Array:
 	var pts := _resample(points, RESAMPLE_COUNT)
-	pts = _rotate_by(pts, -_indicative_angle(pts))
+	if apply_rotation:
+		pts = _rotate_by(pts, -_indicative_angle(pts))
 	pts = _scale_to_square(pts, SQUARE_SIZE)
 	pts = _translate_to_origin(pts)
 	return pts
