@@ -95,8 +95,14 @@ static func _templates_for(symbol_id: StringName) -> Array:
 				_polyline([Vector2(-120, -60), Vector2(120, -60), Vector2(120, 60),
 						   Vector2(-120, 60), Vector2(-120, -60)])])
 		&"zigzag":
+			# Players draw anywhere from 3 to 5 strokes of "zzz" — segment
+			# count changes the whole point sequence, so cover each.
 			return _with_reversed([
-				_polyline([Vector2(-90, -60), Vector2(-30, 60), Vector2(30, -60), Vector2(90, 60)])])
+				_polyline([Vector2(-90, -60), Vector2(-30, 60), Vector2(30, -60), Vector2(90, 60)]),
+				_polyline([Vector2(-100, -60), Vector2(-50, 60), Vector2(0, -60),
+						   Vector2(50, 60), Vector2(100, -60)]),
+				_polyline([Vector2(-100, -60), Vector2(-60, 60), Vector2(-20, -60),
+						   Vector2(20, 60), Vector2(60, -60), Vector2(100, 60)])])
 		&"s_curve":
 			return _with_reversed([
 				_bezier_chain([Vector2(60, -90), Vector2(-60, -60), Vector2(60, 60), Vector2(-60, 90)])])
@@ -113,11 +119,17 @@ static func _templates_for(symbol_id: StringName) -> Array:
 				_spiral(3.0, 110.0, 60), _spiral(-3.0, 110.0, 60),
 				_spiral(2.25, 110.0, 60), _spiral(-2.25, 110.0, 60)])
 		&"figure_eight":
-			# Phase-shifted so the stroke starts at a lobe extreme, never at
-			# the crossing point (= centroid, same instability as the spiral).
+			# Players start an 8 anywhere on the curve. The shape is 2-fold
+			# symmetric (phase + PI repeats it), so quarter-phase starts across
+			# a half period cover every start position to within the
+			# recognizer's ±45° angular search. No crossing-point (phase 0)
+			# variant: at the crossing the two lobe tips are equidistant from
+			# the centroid, so the farthest-point angle fallback flips
+			# randomly under jitter and the variant misleads more than it helps.
 			return _with_reversed([
 				_figure_eight(70.0, 50, PI * 0.5),
-				_figure_eight(70.0, 50, PI * 1.5)])
+				_figure_eight(70.0, 50, PI * 0.25),
+				_figure_eight(70.0, 50, PI * 0.75)])
 	push_warning("SymbolLibrary: no template defined for %s" % symbol_id)
 	return []
 

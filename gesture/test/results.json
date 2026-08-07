@@ -18,24 +18,24 @@
     }
   },
   "flags": [
-    "zigzag self_pick_rate=0.8667 at intensity=1.0",
-    "s_curve self_pick_rate=0.8333 at intensity=1.0",
-    "spiral self_pick_rate=0.9000 at intensity=1.0"
+    "zigzag self_pick_rate=0.9000 at intensity=1.0",
+    "s_curve self_pick_rate=0.7667 at intensity=1.0",
+    "spiral self_pick_rate=0.9333 at intensity=1.0"
   ],
-  "generated_at": "2026-08-07T21:45:55Z",
+  "generated_at": "2026-08-07T21:53:35Z",
   "rng_seed": 1592639710,
-  "suggested_leniency": 0.3433,
+  "suggested_leniency": 0.3835,
   "symbols": {
     "backwards_three": {
-      "self_pick_rate": 1,
+      "self_pick_rate": 0.9778,
       "self_pick_rate_by_intensity": {
         "0.3": 1,
-        "0.6": 1,
-        "1": 1
+        "0.6": 0.966666666666667,
+        "1": 0.966666666666667
       },
-      "self_score_max": 0.9818,
-      "self_score_mean": 0.9404,
-      "self_score_min": 0.8669
+      "self_score_max": 0.9849,
+      "self_score_mean": 0.9401,
+      "self_score_min": 0.8362
     },
     "caret": {
       "self_pick_rate": 1,
@@ -66,9 +66,9 @@
         "0.6": 1,
         "1": 1
       },
-      "self_score_max": 0.9791,
-      "self_score_mean": 0.9025,
-      "self_score_min": 0.7314
+      "self_score_max": 0.9852,
+      "self_score_mean": 0.9173,
+      "self_score_min": 0.7262
     },
     "half_circle": {
       "self_pick_rate": 1,
@@ -77,9 +77,9 @@
         "0.6": 1,
         "1": 1
       },
-      "self_score_max": 0.9892,
-      "self_score_mean": 0.9553,
-      "self_score_min": 0.9013
+      "self_score_max": 0.9879,
+      "self_score_mean": 0.9563,
+      "self_score_min": 0.8871
     },
     "line_v": {
       "self_pick_rate": 1,
@@ -99,31 +99,31 @@
         "0.6": 1,
         "1": 1
       },
-      "self_score_max": 0.9868,
-      "self_score_mean": 0.9485,
-      "self_score_min": 0.8726
+      "self_score_max": 0.9889,
+      "self_score_mean": 0.9493,
+      "self_score_min": 0.8604
     },
     "s_curve": {
-      "self_pick_rate": 0.9444,
+      "self_pick_rate": 0.9111,
       "self_pick_rate_by_intensity": {
         "0.3": 1,
-        "0.6": 1,
-        "1": 0.833333333333333
+        "0.6": 0.966666666666667,
+        "1": 0.766666666666667
       },
       "self_score_max": 0.9864,
-      "self_score_mean": 0.9391,
-      "self_score_min": 0.757
+      "self_score_mean": 0.9354,
+      "self_score_min": 0.8168
     },
     "spiral": {
-      "self_pick_rate": 0.9667,
+      "self_pick_rate": 0.9778,
       "self_pick_rate_by_intensity": {
         "0.3": 1,
         "0.6": 1,
-        "1": 0.9
+        "1": 0.933333333333333
       },
-      "self_score_max": 0.976,
-      "self_score_mean": 0.8313,
-      "self_score_min": 0.3733
+      "self_score_max": 0.9823,
+      "self_score_mean": 0.8418,
+      "self_score_min": 0.4135
     },
     "square": {
       "self_pick_rate": 1,
@@ -148,15 +148,15 @@
       "self_score_min": 0.8294
     },
     "zigzag": {
-      "self_pick_rate": 0.9556,
+      "self_pick_rate": 0.9667,
       "self_pick_rate_by_intensity": {
         "0.3": 1,
         "0.6": 1,
-        "1": 0.866666666666667
+        "1": 0.9
       },
-      "self_score_max": 0.9835,
-      "self_score_mean": 0.9288,
-      "self_score_min": 0.7541
+      "self_score_max": 0.9855,
+      "self_score_mean": 0.9316,
+      "self_score_min": 0.7881
     }
   }
 }
