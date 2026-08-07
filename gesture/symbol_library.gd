@@ -76,35 +76,47 @@ static func _templates_for(symbol_id: StringName) -> Array:
 		&"line_v":
 			return [_polyline([Vector2(0, -100), Vector2(0, 100)]),
 					_polyline([Vector2(0, 100), Vector2(0, -100)])]
+		# $1 is SEQUENCE-sensitive: the same shape drawn in the opposite
+		# direction is a different stroke. Every open-stroke and cornered
+		# symbol therefore ships forward + reversed variants — real players
+		# split roughly evenly on direction and the recognizer must not care.
 		&"caret":
-			return [_polyline([Vector2(-80, 80), Vector2(0, -80), Vector2(80, 80)])]
+			return _with_reversed([
+				_polyline([Vector2(-80, 80), Vector2(0, -80), Vector2(80, 80)])])
 		&"triangle":
-			return [_polyline([Vector2(0, -90), Vector2(85, 70), Vector2(-85, 70), Vector2(0, -90)])]
+			return _with_reversed([
+				_polyline([Vector2(0, -90), Vector2(85, 70), Vector2(-85, 70), Vector2(0, -90)])])
 		&"square":
-			return [_polyline([Vector2(-80, -80), Vector2(80, -80), Vector2(80, 80),
-							   Vector2(-80, 80), Vector2(-80, -80)])]
+			return _with_reversed([
+				_polyline([Vector2(-80, -80), Vector2(80, -80), Vector2(80, 80),
+						   Vector2(-80, 80), Vector2(-80, -80)])])
 		&"rectangle":
-			return [_polyline([Vector2(-120, -60), Vector2(120, -60), Vector2(120, 60),
-							   Vector2(-120, 60), Vector2(-120, -60)])]
+			return _with_reversed([
+				_polyline([Vector2(-120, -60), Vector2(120, -60), Vector2(120, 60),
+						   Vector2(-120, 60), Vector2(-120, -60)])])
 		&"zigzag":
-			return [_polyline([Vector2(-90, -60), Vector2(-30, 60), Vector2(30, -60), Vector2(90, 60)])]
+			return _with_reversed([
+				_polyline([Vector2(-90, -60), Vector2(-30, 60), Vector2(30, -60), Vector2(90, 60)])])
 		&"s_curve":
-			return [_bezier_chain([Vector2(60, -90), Vector2(-60, -60), Vector2(60, 60), Vector2(-60, 90)])]
+			return _with_reversed([
+				_bezier_chain([Vector2(60, -90), Vector2(-60, -60), Vector2(60, 60), Vector2(-60, 90)])])
 		&"backwards_three":
-			return [_bezier_chain([Vector2(-50, -90), Vector2(60, -60), Vector2(-20, 0),
-								   Vector2(60, 60), Vector2(-50, 90)])]
+			return _with_reversed([
+				_bezier_chain([Vector2(-50, -90), Vector2(60, -60), Vector2(-20, 0),
+							   Vector2(60, 60), Vector2(-50, 90)])])
 		&"spiral":
-			# Outside-in, both winding directions. The old inside-out spiral
-			# started at its own centroid, which makes the $1 indicative angle
-			# pure noise under jitter — the stroke normalized at a random
-			# rotation. Templates (and players) must start at the outer edge.
-			return [_spiral(3.0, 110.0, 60), _spiral(-3.0, 110.0, 60)]
+			# Outside-in only (an inside-out spiral starts at its own centroid,
+			# which makes the $1 indicative angle pure noise), both winding
+			# directions, at two turn counts — real players wind ~2 to 3 turns.
+			# NEVER add reversed variants here: reversed = inside-out.
+			return [_spiral(3.0, 110.0, 60), _spiral(-3.0, 110.0, 60),
+					_spiral(2.25, 110.0, 60), _spiral(-2.25, 110.0, 60)]
 		&"figure_eight":
 			# Phase-shifted so the stroke starts at a lobe extreme, never at
 			# the crossing point (= centroid, same instability as the spiral).
-			return [_figure_eight(70.0, 50, PI * 0.5),
-					_figure_eight(70.0, 50, PI * 1.5),
-					_reversed(_figure_eight(70.0, 50, PI * 0.5))]
+			return _with_reversed([
+				_figure_eight(70.0, 50, PI * 0.5),
+				_figure_eight(70.0, 50, PI * 1.5)])
 	push_warning("SymbolLibrary: no template defined for %s" % symbol_id)
 	return []
 
@@ -179,4 +191,12 @@ static func _figure_eight(radius: float, steps: int, phase: float = PI * 0.5) ->
 static func _reversed(points: Array) -> Array:
 	var out := points.duplicate()
 	out.reverse()
+	return out
+
+
+## Returns the given variants plus a reversed copy of each.
+static func _with_reversed(variants: Array) -> Array:
+	var out := variants.duplicate()
+	for v in variants:
+		out.append(_reversed(v))
 	return out
