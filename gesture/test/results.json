@@ -19,11 +19,12 @@
   },
   "flags": [
     "zigzag self_pick_rate=0.8667 at intensity=1.0",
-    "s_curve self_pick_rate=0.8333 at intensity=1.0"
+    "s_curve self_pick_rate=0.8333 at intensity=1.0",
+    "spiral self_pick_rate=0.9000 at intensity=1.0"
   ],
-  "generated_at": "2026-08-07T21:37:43Z",
+  "generated_at": "2026-08-07T21:45:55Z",
   "rng_seed": 1592639710,
-  "suggested_leniency": 0.5853,
+  "suggested_leniency": 0.3433,
   "symbols": {
     "backwards_three": {
       "self_pick_rate": 1,
@@ -114,15 +115,15 @@
       "self_score_min": 0.757
     },
     "spiral": {
-      "self_pick_rate": 1,
+      "self_pick_rate": 0.9667,
       "self_pick_rate_by_intensity": {
         "0.3": 1,
         "0.6": 1,
-        "1": 1
+        "1": 0.9
       },
-      "self_score_max": 0.9725,
-      "self_score_mean": 0.8489,
-      "self_score_min": 0.6153
+      "self_score_max": 0.976,
+      "self_score_mean": 0.8313,
+      "self_score_min": 0.3733
     },
     "square": {
       "self_pick_rate": 1,

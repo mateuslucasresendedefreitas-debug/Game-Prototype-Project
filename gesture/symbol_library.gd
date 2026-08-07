@@ -105,12 +105,13 @@ static func _templates_for(symbol_id: StringName) -> Array:
 				_bezier_chain([Vector2(-50, -90), Vector2(60, -60), Vector2(-20, 0),
 							   Vector2(60, 60), Vector2(-50, 90)])])
 		&"spiral":
-			# Outside-in only (an inside-out spiral starts at its own centroid,
-			# which makes the $1 indicative angle pure noise), both winding
-			# directions, at two turn counts — real players wind ~2 to 3 turns.
-			# NEVER add reversed variants here: reversed = inside-out.
-			return [_spiral(3.0, 110.0, 60), _spiral(-3.0, 110.0, 60),
-					_spiral(2.25, 110.0, 60), _spiral(-2.25, 110.0, 60)]
+			# Both winding directions at two turn counts (players wind ~2 to 3),
+			# and both drawing styles: outside-in plus reversed (= inside-out).
+			# Inside-out starts at the centroid, which the recognizer's
+			# farthest-point indicative-angle fallback handles.
+			return _with_reversed([
+				_spiral(3.0, 110.0, 60), _spiral(-3.0, 110.0, 60),
+				_spiral(2.25, 110.0, 60), _spiral(-2.25, 110.0, 60)])
 		&"figure_eight":
 			# Phase-shifted so the stroke starts at a lobe extreme, never at
 			# the crossing point (= centroid, same instability as the spiral).

@@ -135,11 +135,30 @@ func _centroid(points: PackedVector2Array) -> Vector2:
 	return sum / float(points.size())
 
 
+## Angle used to rotation-normalize the stroke. $1 uses centroid -> first
+## point, but for strokes that START near their own centroid (an inside-out
+## spiral) that vector is pure noise. Fall back to centroid -> farthest point,
+## which is stable for center-start strokes. The 0.3 cutoff is far below any
+## perimeter-start symbol (all >= ~0.8 relative distance), so only genuine
+## center starts take the fallback path.
+const CENTER_START_RATIO: float = 0.3
+
 func _indicative_angle(points: PackedVector2Array) -> float:
 	var c := _centroid(points)
 	var v := points[0] - c
-	if v.length_squared() < 0.000001:
+
+	var max_d_sq := 0.0
+	var farthest := v
+	for p in points:
+		var d := p - c
+		if d.length_squared() > max_d_sq:
+			max_d_sq = d.length_squared()
+			farthest = d
+
+	if max_d_sq < 0.000001:
 		return 0.0
+	if v.length_squared() < max_d_sq * CENTER_START_RATIO * CENTER_START_RATIO:
+		v = farthest
 	return atan2(v.y, v.x)
 
 
